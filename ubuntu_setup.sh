@@ -34,10 +34,10 @@ domain_join () {
     file="./ubuntu_setup.conf"
     domain=$(grep '^domain' "$file" | cut -d\= -f2)
     dc=$(grep '^dc=' "$file" | cut -d\= -f2)
-    adm=$(grep '^admin_account=' "$file" | cut -d\= -f2 | cut -d\@ -f1)
+    read -p "Email address: " adm
 
     sudo realm discover $domain
-    sudo realm join -U $adm@${domain^^} $dc                                     # TODO: Test this line. The @ symbol may cause errors.
+    sudo realm join -U $adm $dc -v                                 
     sudo realm permit --all
     echo "Domain join finished."
 }
